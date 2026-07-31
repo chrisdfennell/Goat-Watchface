@@ -142,19 +142,19 @@ class GoatFaceView extends WatchUi.WatchFace {
     hidden function backdropColor(hour as Number) as Number {
         var mode = Config.backdrop;
         if (mode == Config.BACK_MEADOW) {
-            return 0x2E5B2E;
+            return 0x265B26;
         } else if (mode == Config.BACK_SLATE) {
-            return 0x2A2F36;
+            return 0x2E3338;
         } else if (mode == Config.BACK_BLACK) {
             return 0x000000;
         }
         // Auto: the light outside the barn.
         if (hour >= 5 && hour < 8) {
-            return 0x453352;   // dawn
+            return 0x452852;   // dawn
         } else if (hour >= 8 && hour < 17) {
-            return 0x2F6382;   // daylight
+            return 0x1A5E9E;   // daylight
         } else if (hour >= 17 && hour < 21) {
-            return 0x63382F;   // dusk
+            return 0x632826;   // dusk
         }
         return 0x0E1626;       // night
     }

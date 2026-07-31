@@ -30,18 +30,18 @@ HINGE = 0.34
 LEATHER = 0x46301E
 CREAM = 0xF3E7CC
 STITCH = 0xC9A96A
-MEADOW = 0x2E5B2E
-SLATE = 0x2A2F36
-DAYLIGHT = 0x2F6382
+MEADOW = 0x265B26
+SLATE = 0x2E3338
+DAYLIGHT = 0x1A5E9E
 
 BREEDS = [
-    dict(name="Nubian", coat=0x6B3F1D, coatDark=0x3C220E, coatLight=0x9A6636,
+    dict(name="Nubian", coat=0x803F1D, coatDark=0x3C220E, coatLight=0x9A6636,
          muzzle=0xB08050, muzzleDark=0x4A2C13, earInner=0x8F5A32, beardColor=0x3C220E,
          eye=0xE8B33C, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_DROOP, horns=HORN_NONE, beard=BEARD_SHORT, marking=MARK_NONE,
          markColor=0xF2EEE3, curly=False, faceInk=0xF5EFE0, faceDark=0x241F1B, wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Alpine", coat=0x9A7245, coatDark=0x4E351A, coatLight=0xC5A175,
-         muzzle=0x2E2A26, muzzleDark=0x131110, earInner=0x6A4C2E, beardColor=0x1C1A18,
+    dict(name="Alpine", coat=0x9A722A, coatDark=0x4E2A1A, coatLight=0xC5A175,
+         muzzle=0x2A2A26, muzzleDark=0x131110, earInner=0x6A4C2E, beardColor=0x1C1A18,
          eye=0xE8B33C, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_UPRIGHT, horns=HORN_SWEPT, beard=BEARD_SHORT, marking=MARK_DARK_FACE,
          markColor=0xF2EEE3, curly=False, faceInk=0xF5EFE0, faceDark=0x241F1B, wattles=False, muzzleLen=1.0, eyeScale=1.0),
@@ -50,43 +50,43 @@ BREEDS = [
          eye=0xE8B33C, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_DROOP, horns=HORN_SWEPT, beard=BEARD_NONE, marking=MARK_BLAZE,
          markColor=0xF2EEE3, curly=False, faceInk=0x4A2A16, faceDark=0x241F1B, wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Angora", coat=0xEFE6D0, coatDark=0xC2B497, coatLight=0xFFFAEE,
+    dict(name="Angora", coat=0xEFE6D0, coatDark=0xD5B47F, coatLight=0xFFFAEE,
          muzzle=0xE0B9A6, muzzleDark=0x8A6252, earInner=0xD8BFA8, beardColor=0xD8CBAF,
-         eye=0x8FA3B8, horn=0xD3C09A, hornDark=0x9A886A,
+         eye=0x7FA3D5, horn=0xD3C09A, hornDark=0x9A886A,
          ear=EAR_UPRIGHT, horns=HORN_SPIRAL, beard=BEARD_LONG, marking=MARK_NONE,
          markColor=0xF2EEE3, curly=True, faceInk=0x5A4A33, faceDark=0x241F1B, wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Pygmy", coat=0x7B6D5D, coatDark=0x453C33, coatLight=0xA8967F,
+    dict(name="Pygmy", coat=0x806D5D, coatDark=0x453C33, coatLight=0xA8967F,
          muzzle=0x8E8070, muzzleDark=0x2A241E, earInner=0x5E5346, beardColor=0x35302A,
          eye=0xE8B33C, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_SIDE, horns=HORN_SPIKE, beard=BEARD_SHORT, marking=MARK_MASK,
          markColor=0x2A241E, curly=False, faceInk=0xF5EFE0, faceDark=0x241F1B, wattles=False, muzzleLen=0.92, eyeScale=1.12),
-    dict(name="LaMancha", coat=0x463227, coatDark=0x241813, coatLight=0x6E5040,
-         muzzle=0x7A5C48, muzzleDark=0x2A1C14, earInner=0x5A4034, beardColor=0x241813,
+    dict(name="LaMancha", coat=0x462A27, coatDark=0x241813, coatLight=0x6E5040,
+         muzzle=0x805C2A, muzzleDark=0x2A1C14, earInner=0x5A4034, beardColor=0x241813,
          eye=0xD9A441, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_ELF, horns=HORN_NONE, beard=BEARD_SHORT, marking=MARK_NONE,
          markColor=0xF2EEE3, curly=False, faceInk=0xF5EFE0, faceDark=0x241F1B, wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Toggenburg", coat=0x8A6B45, coatDark=0x543D24, coatLight=0xB59468,
-         muzzle=0xF0E8D8, muzzleDark=0x6A5238, earInner=0xB08C60, beardColor=0x543D24,
+    dict(name="Toggenburg", coat=0x8A6B2A, coatDark=0x542A24, coatLight=0xB59468,
+         muzzle=0xF0E8D4, muzzleDark=0x6A5238, earInner=0xB08C60, beardColor=0x543D24,
          eye=0xE8B33C, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_UPRIGHT, horns=HORN_NONE, beard=BEARD_SHORT, marking=MARK_STRIPES,
          markColor=0xF2EEE3, curly=False, faceInk=0xF5EFE0, faceDark=0x241F1B, wattles=True, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Saanen", coat=0xF2EFE2, coatDark=0xC6C0AE, coatLight=0xFFFFF6,
+    dict(name="Saanen", coat=0xF2EFD4, coatDark=0xC6C0AE, coatLight=0xFFFFF6,
          muzzle=0xE9B2A4, muzzleDark=0x9A6A5E, earInner=0xE0C9BC, beardColor=0xDCD6C4,
-         eye=0x86B4D6, horn=0xC9B58A, hornDark=0x8A7A5C,
+         eye=0x7FB4D6, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_UPRIGHT, horns=HORN_NONE, beard=BEARD_SHORT, marking=MARK_NONE,
          markColor=0xF2EEE3, curly=False, faceInk=0x55503F, faceDark=0x241F1B, wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Wild Ibex", coat=0xB08B57, coatDark=0x6A4F2E, coatLight=0xD8B884,
+    dict(name="Wild Ibex", coat=0xB08B57, coatDark=0x804F2A, coatLight=0xD8B884,
          muzzle=0xD8C9AC, muzzleDark=0x5A4530, earInner=0x8A6A42, beardColor=0x2E2118,
          eye=0xE8B33C, horn=0x8F7C58, hornDark=0x5A4C34,
          ear=EAR_SIDE, horns=HORN_IBEX, beard=BEARD_LONG, marking=MARK_MASK,
          markColor=0x4A3520, curly=False, faceInk=0xF5EFE0, faceDark=0x241F1B, wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Black Bengal", coat=0x272727, coatDark=0x0D0D0D, coatLight=0x4E4E4E,
+    dict(name="Black Bengal", coat=0x272727, coatDark=0x0D0D2B, coatLight=0x4E4E4E,
          muzzle=0x3C3C3C, muzzleDark=0x0A0A0A, earInner=0x333333, beardColor=0x141414,
          eye=0xE8A93C, horn=0x8C8272, hornDark=0x5A5246,
          ear=EAR_UPRIGHT, horns=HORN_SPIKE, beard=BEARD_SHORT, marking=MARK_NONE,
          markColor=0xF2EEE3, curly=False, faceInk=0xF5EFE0, faceDark=0x241F1B, wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Nigerian Dwarf", coat=0x4A3226, coatDark=0x241811, coatLight=0x7A5642,
-         muzzle=0xF0E6DA, muzzleDark=0x5A4034, earInner=0x8A6A56, beardColor=0x241811,
+    dict(name="Nigerian Dwarf", coat=0x803F1D, coatDark=0x2B1811, coatLight=0x7A5642,
+         muzzle=0xF0E6D4, muzzleDark=0x5A4034, earInner=0x8A6A56, beardColor=0x241811,
          eye=0x7FB6DC, horn=0xC0AE8E, hornDark=0x877A62,
          ear=EAR_UPRIGHT, horns=HORN_SPIKE, beard=BEARD_SHORT, marking=MARK_BLAZE,
          markColor=0xF4EEE6, curly=False, faceInk=0x40281C, faceDark=0x241F1B,
@@ -97,25 +97,25 @@ BREEDS = [
          ear=EAR_UPRIGHT, horns=HORN_SWEPT, beard=BEARD_SHORT, marking=MARK_DARK_FACE,
          markColor=0xC97B3E, curly=False, faceInk=0xF5EFE0, faceDark=0x1E1A18,
          wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Valais Blacknose", coat=0xF4F0E6, coatDark=0xC9C3B4, coatLight=0xFFFFFA,
+    dict(name="Valais Blacknose", coat=0xF4F0E6, coatDark=0xD5D5B4, coatLight=0xFFFFFA,
          muzzle=0x1E1C1B, muzzleDark=0x080807, earInner=0x2A2624, beardColor=0xDED8C8,
          eye=0xE8B33C, horn=0xC6B492, hornDark=0x8E7F63,
          ear=EAR_UPRIGHT, horns=HORN_SPIRAL, beard=BEARD_SHORT, marking=MARK_DARK_FACE,
          markColor=0x1C1A19, curly=True, faceInk=0x3A3532, faceDark=0x1C1A19,
          wattles=False, muzzleLen=1.0, eyeScale=1.0),
     dict(name="Markhor", coat=0x9C8E76, coatDark=0x5E543F, coatLight=0xC3B79C,
-         muzzle=0xD2C8B2, muzzleDark=0x4A4234, earInner=0x7A6E58, beardColor=0x3A3226,
+         muzzle=0xD5D5B2, muzzleDark=0x4A4234, earInner=0x7A6E58, beardColor=0x3A3226,
          eye=0xE8B33C, horn=0x8A7F66, hornDark=0x574E3C,
          ear=EAR_SIDE, horns=HORN_SPIRAL, beard=BEARD_LONG, marking=MARK_STRIPES,
          markColor=0xE4DCC8, curly=False, faceInk=0xF5EFE0, faceDark=0x241F1B,
          wattles=False, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Golden Guernsey", coat=0xD69B45, coatDark=0x94631F, coatLight=0xF0C075,
+    dict(name="Golden Guernsey", coat=0xD69B45, coatDark=0x94632B, coatLight=0xF0C075,
          muzzle=0xE9C89A, muzzleDark=0x7A5424, earInner=0xC08A44, beardColor=0x94631F,
-         eye=0xC98A2E, horn=0xC9B58A, hornDark=0x8A7A5C,
+         eye=0xC97F2A, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_SIDE, horns=HORN_NONE, beard=BEARD_SHORT, marking=MARK_NONE,
          markColor=0xF2EEE3, curly=False, faceInk=0x4A3212, faceDark=0x241F1B,
          wattles=True, muzzleLen=1.0, eyeScale=1.0),
-    dict(name="Kiko", coat=0xE6DCC4, coatDark=0xB0A587, coatLight=0xF7F1E2,
+    dict(name="Kiko", coat=0xE6DCC4, coatDark=0xB0A57F, coatLight=0xF7F1E2,
          muzzle=0xD9BFA6, muzzleDark=0x7A6450, earInner=0xC9B294, beardColor=0xBFB396,
          eye=0xD8A441, horn=0xC9B58A, hornDark=0x8A7A5C,
          ear=EAR_SIDE, horns=HORN_IBEX, beard=BEARD_LONG, marking=MARK_NONE,
@@ -124,13 +124,32 @@ BREEDS = [
 ]
 
 
+# Set true to simulate the fixed 64-colour palette of the older MIP watches
+# (fenix 5/6, vivoactive 3/4, fr245/745/945, marq, ...): every channel snaps to
+# 0x00 / 0x55 / 0xAA / 0xFF. The device quantises each *fill colour*, not each
+# pixel, which is why this hooks the colour helpers rather than the output image.
+PALETTE64 = False
+_LEVELS = (0x00, 0x55, 0xAA, 0xFF)
+
+
+def _snap(v):
+    return min(_LEVELS, key=lambda L: abs(L - v))
+
+
+def quantize(rgb_tuple):
+    if not PALETTE64:
+        return rgb_tuple
+    return tuple(_snap(v) for v in rgb_tuple)
+
+
 def rgb(c):
-    return ((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF)
+    return quantize(((c >> 16) & 0xFF, (c >> 8) & 0xFF, c & 0xFF))
 
 
 def tint(c, factor):
-    r, g, b = rgb(c)
-    return (min(255, int(r * factor)), min(255, int(g * factor)), min(255, int(b * factor)))
+    r, g, b = (((c >> 16) & 0xFF), ((c >> 8) & 0xFF), (c & 0xFF))
+    return quantize((min(255, int(r * factor)), min(255, int(g * factor)),
+                     min(255, int(b * factor))))
 
 
 def fizz(n):

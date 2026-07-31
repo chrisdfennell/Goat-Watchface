@@ -29,11 +29,13 @@ jobs:
   build:
     name: Build and publish
     runs-on: ubuntu-latest
-    # Keep this tag at or above the SDK that manifest.xml was authored against -
-    # an older SDK does not know the newest product IDs and the build will fail
-    # on an unknown device.
+    # 9.1.0 is the newest tag this image publishes (checked against the ghcr tag
+    # list). The manifest was authored against SDK 9.2.0, so if the export fails
+    # with an unknown product ID it will be one of the newest watches - either
+    # bump this tag once a 9.2.0 image exists, or drop that product from
+    # manifest.xml.
     container:
-      image: ghcr.io/blackshadev/garmin-connectiq-tools:9.2.0
+      image: ghcr.io/blackshadev/garmin-connectiq-tools:9.1.0
 
     steps:
       - name: Checkout repository

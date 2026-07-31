@@ -93,6 +93,24 @@ taking it modulo a small number walks a short repeating cycle that can miss
 residues entirely; the first version of this face never blinked at all because
 of it.
 
+### Colour on MIP watches
+
+Half the supported devices are memory-in-pixel, and the older ones declare a
+fixed **64-colour palette**: every channel snaps to `00`/`55`/`AA`/`FF`. There
+is no true chocolate in that palette, so a brown goat will always come out
+orange-brown or maroon — but what matters is that colours which carry *shape*
+stay distinct after quantising. A coat and the halter's leather landing on the
+same entry makes the strap vanish into the face, which is exactly what the first
+version did.
+
+![on a 64-colour MIP panel](assets/preview_mip.png)
+
+`tools/check_palette.py` asserts this and fails loudly if a change breaks it:
+
+```
+python tools/check_palette.py
+```
+
 ### Tools
 
 `tools/goatart.py` is a line-for-line PIL mirror of the Monkey C artist — same
@@ -100,10 +118,15 @@ fraction constants, same palette, same draw order. **If you change one, change
 the other.** It pays for itself three times over:
 
 ```
-python tools/preview.py     # assets/preview_breeds.png + preview_anim.png
-python tools/gen_icons.py   # launcher icons at every panel family's size
-python tools/gen_assets.py  # store icon / cover / hero art
+python tools/preview.py       # assets/preview_breeds.png + preview_anim.png
+python tools/gen_icons.py     # launcher icons at every panel family's size
+python tools/gen_assets.py    # store icon / cover / hero art
+python tools/check_palette.py # 64-colour MIP safety + mirror/source agreement
 ```
+
+Set `goatart.PALETTE64 = True` to render any preview the way a 64-colour MIP
+watch would show it — it hooks the colour helpers rather than the output image,
+because the device quantises each *fill colour*, not each pixel.
 
 `preview.py` renders all sixteen goats, and twelve consecutive seconds of one goat
 across a yawn,

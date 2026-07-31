@@ -77,7 +77,7 @@ module Breeds {
 
         if (i == 0) {
             // Nubian - glossy chocolate, ears past the jaw, naturally polled
-            b.coat = 0x6B3F1D;      b.coatDark = 0x3C220E;   b.coatLight = 0x9A6636;
+            b.coat = 0x803F1D;      b.coatDark = 0x3C220E;   b.coatLight = 0x9A6636;
             b.muzzle = 0xB08050;    b.muzzleDark = 0x4A2C13;  b.earInner = 0x8F5A32;
             b.beardColor = 0x3C220E;
             b.ear = EAR_DROOP;      b.horns = HORN_NONE;      b.beard = BEARD_SHORT;
@@ -85,8 +85,8 @@ module Breeds {
 
         } else if (i == 1) {
             // Alpine - black face with the two white eye stripes, swept horns
-            b.coat = 0x9A7245;      b.coatDark = 0x4E351A;   b.coatLight = 0xC5A175;
-            b.muzzle = 0x2E2A26;    b.muzzleDark = 0x131110;  b.earInner = 0x6A4C2E;
+            b.coat = 0x9A722A;      b.coatDark = 0x4E2A1A;   b.coatLight = 0xC5A175;
+            b.muzzle = 0x2A2A26;    b.muzzleDark = 0x131110;  b.earInner = 0x6A4C2E;
             b.beardColor = 0x1C1A18;
             b.ear = EAR_UPRIGHT;    b.horns = HORN_SWEPT;     b.beard = BEARD_SHORT;
             b.marking = MARK_DARK_FACE; b.markColor = 0xF2EEE3;
@@ -102,9 +102,9 @@ module Breeds {
 
         } else if (i == 3) {
             // Angora - cream fleece in ringlets, corkscrew horns, long beard
-            b.coat = 0xEFE6D0;      b.coatDark = 0xC2B497;   b.coatLight = 0xFFFAEE;
+            b.coat = 0xEFE6D0;      b.coatDark = 0xD5B47F;   b.coatLight = 0xFFFAEE;
             b.muzzle = 0xE0B9A6;    b.muzzleDark = 0x8A6252;  b.earInner = 0xD8BFA8;
-            b.beardColor = 0xD8CBAF; b.eye = 0x8FA3B8;
+            b.beardColor = 0xD8CBAF; b.eye = 0x7FA3D5;
             b.horn = 0xD3C09A;      b.hornDark = 0x9A886A;
             b.ear = EAR_UPRIGHT;    b.horns = HORN_SPIRAL;    b.beard = BEARD_LONG;
             b.marking = MARK_NONE;  b.curly = true;
@@ -112,7 +112,7 @@ module Breeds {
 
         } else if (i == 4) {
             // Pygmy - agouti grey with a dark bandit mask and stubby horns
-            b.coat = 0x7B6D5D;      b.coatDark = 0x453C33;   b.coatLight = 0xA8967F;
+            b.coat = 0x806D5D;      b.coatDark = 0x453C33;   b.coatLight = 0xA8967F;
             b.muzzle = 0x8E8070;    b.muzzleDark = 0x2A241E;  b.earInner = 0x5E5346;
             b.beardColor = 0x35302A;
             b.ear = EAR_SIDE;       b.horns = HORN_SPIKE;     b.beard = BEARD_SHORT;
@@ -121,16 +121,16 @@ module Breeds {
 
         } else if (i == 5) {
             // LaMancha - the earless one; chocolate coat, tiny elf ears
-            b.coat = 0x463227;      b.coatDark = 0x241813;   b.coatLight = 0x6E5040;
-            b.muzzle = 0x7A5C48;    b.muzzleDark = 0x2A1C14;  b.earInner = 0x5A4034;
+            b.coat = 0x462A27;      b.coatDark = 0x241813;   b.coatLight = 0x6E5040;
+            b.muzzle = 0x805C2A;    b.muzzleDark = 0x2A1C14;  b.earInner = 0x5A4034;
             b.beardColor = 0x241813; b.eye = 0xD9A441;
             b.ear = EAR_ELF;        b.horns = HORN_NONE;      b.beard = BEARD_SHORT;
             b.marking = MARK_NONE;
 
         } else if (i == 6) {
             // Toggenburg - fawn with the two white stripes down the face
-            b.coat = 0x8A6B45;      b.coatDark = 0x543D24;   b.coatLight = 0xB59468;
-            b.muzzle = 0xF0E8D8;    b.muzzleDark = 0x6A5238;  b.earInner = 0xB08C60;
+            b.coat = 0x8A6B2A;      b.coatDark = 0x542A24;   b.coatLight = 0xB59468;
+            b.muzzle = 0xF0E8D4;    b.muzzleDark = 0x6A5238;  b.earInner = 0xB08C60;
             b.beardColor = 0x543D24;
             b.ear = EAR_UPRIGHT;    b.horns = HORN_NONE;      b.beard = BEARD_SHORT;
             b.marking = MARK_STRIPES; b.markColor = 0xF2EEE3;
@@ -138,16 +138,16 @@ module Breeds {
 
         } else if (i == 7) {
             // Saanen - all white, pink muzzle, pale eyes
-            b.coat = 0xF2EFE2;      b.coatDark = 0xC6C0AE;   b.coatLight = 0xFFFFF6;
+            b.coat = 0xF2EFD4;      b.coatDark = 0xC6C0AE;   b.coatLight = 0xFFFFF6;
             b.muzzle = 0xE9B2A4;    b.muzzleDark = 0x9A6A5E;  b.earInner = 0xE0C9BC;
-            b.beardColor = 0xDCD6C4; b.eye = 0x86B4D6;
+            b.beardColor = 0xDCD6C4; b.eye = 0x7FB4D6;
             b.ear = EAR_UPRIGHT;    b.horns = HORN_NONE;      b.beard = BEARD_SHORT;
             b.marking = MARK_NONE;
             b.faceInk = 0x55503F;
 
         } else if (i == 8) {
             // Ibex - the wild one, with the horns to prove it
-            b.coat = 0xB08B57;      b.coatDark = 0x6A4F2E;   b.coatLight = 0xD8B884;
+            b.coat = 0xB08B57;      b.coatDark = 0x804F2A;   b.coatLight = 0xD8B884;
             b.muzzle = 0xD8C9AC;    b.muzzleDark = 0x5A4530;  b.earInner = 0x8A6A42;
             b.beardColor = 0x2E2118; b.horn = 0x8F7C58;       b.hornDark = 0x5A4C34;
             b.ear = EAR_SIDE;       b.horns = HORN_IBEX;      b.beard = BEARD_LONG;
@@ -155,7 +155,7 @@ module Breeds {
 
         } else if (i == 9) {
             // Black Bengal - jet black with amber eyes and short spikes
-            b.coat = 0x272727;      b.coatDark = 0x0D0D0D;   b.coatLight = 0x4E4E4E;
+            b.coat = 0x272727;      b.coatDark = 0x0D0D2B;   b.coatLight = 0x4E4E4E;
             b.muzzle = 0x3C3C3C;    b.muzzleDark = 0x0A0A0A;  b.earInner = 0x333333;
             b.beardColor = 0x141414; b.eye = 0xE8A93C;
             b.horn = 0x8C8272;      b.hornDark = 0x5A5246;
@@ -164,9 +164,11 @@ module Breeds {
 
         } else if (i == 10) {
             // Nigerian Dwarf - chocolate and white, blue eyes, wattles, and the
+            b.coat = 0x803F1D;
+
             // short kid face the breed keeps its whole life
-            b.coat = 0x4A3226;      b.coatDark = 0x241811;   b.coatLight = 0x7A5642;
-            b.muzzle = 0xF0E6DA;    b.muzzleDark = 0x5A4034;  b.earInner = 0x8A6A56;
+            b.coat = 0x4A2A26;      b.coatDark = 0x2B1811;   b.coatLight = 0x7A5642;
+            b.muzzle = 0xF0E6D4;    b.muzzleDark = 0x5A4034;  b.earInner = 0x8A6A56;
             b.beardColor = 0x241811; b.eye = 0x7FB6DC;        // the famous blue eye
             b.horn = 0xC0AE8E;      b.hornDark = 0x877A62;
             b.ear = EAR_UPRIGHT;    b.horns = HORN_SPIKE;     b.beard = BEARD_SHORT;
@@ -185,7 +187,7 @@ module Breeds {
 
         } else if (i == 12) {
             // Valais Blacknose - white ringlets, and a face black to the ears
-            b.coat = 0xF4F0E6;      b.coatDark = 0xC9C3B4;   b.coatLight = 0xFFFFFA;
+            b.coat = 0xF4F0E6;      b.coatDark = 0xD5D5B4;   b.coatLight = 0xFFFFFA;
             b.muzzle = 0x1E1C1B;    b.muzzleDark = 0x080807;  b.earInner = 0x2A2624;
             b.beardColor = 0xDED8C8; b.faceDark = 0x1C1A19;
             b.horn = 0xC6B492;      b.hornDark = 0x8E7F63;
@@ -197,16 +199,16 @@ module Breeds {
         } else if (i == 13) {
             // Markhor - the wild corkscrew, shaggy grey and a beard to the chest
             b.coat = 0x9C8E76;      b.coatDark = 0x5E543F;   b.coatLight = 0xC3B79C;
-            b.muzzle = 0xD2C8B2;    b.muzzleDark = 0x4A4234;  b.earInner = 0x7A6E58;
+            b.muzzle = 0xD5D5B2;    b.muzzleDark = 0x4A4234;  b.earInner = 0x7A6E58;
             b.beardColor = 0x3A3226; b.horn = 0x8A7F66;       b.hornDark = 0x574E3C;
             b.ear = EAR_SIDE;       b.horns = HORN_SPIRAL;    b.beard = BEARD_LONG;
             b.marking = MARK_STRIPES; b.markColor = 0xE4DCC8;
 
         } else if (i == 14) {
             // Golden Guernsey - blonde all over, ears carried a little low
-            b.coat = 0xD69B45;      b.coatDark = 0x94631F;   b.coatLight = 0xF0C075;
+            b.coat = 0xD69B45;      b.coatDark = 0x94632B;   b.coatLight = 0xF0C075;
             b.muzzle = 0xE9C89A;    b.muzzleDark = 0x7A5424;  b.earInner = 0xC08A44;
-            b.beardColor = 0x94631F; b.eye = 0xC98A2E;
+            b.beardColor = 0x94631F; b.eye = 0xC97F2A;
             b.ear = EAR_SIDE;       b.horns = HORN_NONE;      b.beard = BEARD_SHORT;
             b.marking = MARK_NONE;
             b.wattles = true;
@@ -214,7 +216,7 @@ module Breeds {
 
         } else {
             // Kiko - hardy cream New Zealander with a big sweep of horn
-            b.coat = 0xE6DCC4;      b.coatDark = 0xB0A587;   b.coatLight = 0xF7F1E2;
+            b.coat = 0xE6DCC4;      b.coatDark = 0xB0A57F;   b.coatLight = 0xF7F1E2;
             b.muzzle = 0xD9BFA6;    b.muzzleDark = 0x7A6450;  b.earInner = 0xC9B294;
             b.beardColor = 0xBFB396; b.eye = 0xD8A441;
             b.ear = EAR_SIDE;       b.horns = HORN_IBEX;      b.beard = BEARD_LONG;

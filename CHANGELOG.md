@@ -4,6 +4,38 @@ All notable changes to Goat Face are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project aims to
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-07-31
+
+### Added
+- Data fields are **labelled** - a dimmed caption above each value (STEPS, HR,
+  CAL, BATT, BODY, ALERTS, ACTIVE, and KM/MILES following your unit setting).
+- The date now reads **weekday, month and day**, falling back to weekday and
+  day on panels too narrow to fit it.
+- `tools/check_palette.py`, which asserts the breed colours survive the
+  64-colour MIP palette and that the PIL mirror still matches the Monkey C
+  source.
+
+### Fixed
+- **The face was badly wrong on 64-colour MIP watches** (fenix 5/6,
+  vivoactive 3/4, fr245/745/945, marq and friends). Those panels declare a
+  fixed palette where every channel snaps to 0x00/0x55/0xAA/0xFF, and the
+  colours had been picked without it in mind:
+  - chocolate coats quantised to **olive**, and so did the halter's leather -
+    so on a Nubian the strap disappeared into the face
+  - the daylight sky quantised to **indigo**, the meadow and dusk backdrops to
+    **grey**, and slate to **teal**
+  - eight of sixteen breeds lost most of their shading, Black Bengal collapsing
+    from eight distinct colours to three
+
+  Colours are now chosen so they land on sensible, distinct palette entries -
+  nudged the minimum distance needed, and biased to keep the hue's channel
+  ordering so a brown picks an orange-brown rather than the numerically nearer
+  grey. On a 16-bit AMOLED panel the change is imperceptible.
+- The date is drawn with a one-pixel halo, so it stays legible where it crosses
+  from a blaze onto the coat.
+- The release workflow referenced a container image tag (`9.2.0`) that does not
+  exist; pinned to `9.1.0`, the newest published.
+
 ## [1.1.0] - 2026-07-31
 
 ### Added
