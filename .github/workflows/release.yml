@@ -1,6 +1,6 @@
 name: Release
 
-# Builds side-loadable .prg files and publishes them to a GitHub Release
+# Builds the store package and side-loadable .prg files, and publishes them to a GitHub Release
 # whenever you push a version tag, e.g.:
 #
 #     git tag v1.2.0
@@ -14,20 +14,23 @@ name: Release
 #     Linux   : base64 -w0 developer_key.der
 #
 # ── About the store .iq ───────────────────────────────────────────────────────
-# This workflow deliberately does NOT build the store package. The .iq covers
-# every product in manifest.xml, and the newest Connect IQ container image
-# available (SDK 9.1.0) does not recognise the newest watches the manifest
-# targets — fr70, fr170, fr170m and d2mach2pro — so the export fails outright.
-# Garmin ships device definitions through the SDK Manager rather than in the SDK
-# download, so CI cannot simply fetch a newer SDK either.
+# The .iq covers every product in manifest.xml, so it needs an SDK that knows
+# all of them. The newest published Connect IQ container image ships SDK 9.1.0,
+# which does not recognise the newest watches this manifest targets (fr70,
+# fr170, fr170m, d2mach2pro). Garmin distributes device definitions through the
+# SDK Manager rather than in the SDK download — they are not in the SDK zip —
+# so CI cannot fetch a newer one by itself.
 #
-# So: build the .iq locally with a current SDK and attach it to the release.
+# Rather than fail, the build below strips exactly the products the SDK names
+# and produces GoatFace-PARTIAL-missing-<ids>.iq. That name is deliberately
+# ugly: a partial package must never be mistaken for the full one on its way to
+# the Connect IQ store. Submit the full .iq built locally instead:
 #
 #     .\release_local.ps1
-#     gh release upload v1.2.0 release\GoatFace.iq
+#     gh release upload v1.2.0 release\GoatFace.iq --clobber
 #
-# When a container image with SDK 9.2.0 or later appears, restore the export
-# step here and drop the local dance.
+# The moment an image with a newer SDK appears, bump the tag below and this goes
+# back to producing a plain, complete GoatFace.iq with no intervention.
 # ──────────────────────────────────────────────────────────────────────────────
 
 on:
@@ -57,6 +60,48 @@ jobs:
             exit 1
           fi
           echo "${{ secrets.GARMIN_DEVELOPER_KEY }}" | base64 -d > developer_key.der
+
+      - name: Build store package (.iq)
+        run: |
+          mkdir -p bin
+
+          # The .iq covers every product in manifest.xml. The SDK in the image
+          # above may not recognise the very newest watches, in which case the
+          # export fails outright rather than skipping them. When that happens,
+          # strip exactly the products it named and build again - and say so in
+          # the artifact's name, so a partial package can never be mistaken for
+          # the full one on the way to the store.
+          set +e
+          java -jar /connectiq/bin/monkeybrains.jar \
+            -e -f monkey.jungle -y developer_key.der -o bin/GoatFace.iq 2>&1 | tee iq.log
+          rc=${PIPESTATUS[0]}
+          set -e
+
+          if [ "$rc" -eq 0 ]; then
+            echo "Full store package built - every product in the manifest."
+            exit 0
+          fi
+
+          if ! grep -q "are not recognized" iq.log; then
+            echo "::error::.iq export failed for a reason other than unknown devices"
+            cat iq.log
+            exit 1
+          fi
+
+          ids=$(grep "are not recognized" iq.log | grep -o "'[A-Za-z0-9_]*'" | tr -d "'" | sort -u)
+          echo "::warning::SDK in this image does not know: $(echo $ids | tr '\n' ' ')- building a partial package without them"
+
+          cp manifest.xml manifest.full.xml
+          for d in $ids; do
+            sed -i "\#<iq:product id=\"$d\"/>#d" manifest.xml
+          done
+
+          java -jar /connectiq/bin/monkeybrains.jar \
+            -e -f monkey.jungle -y developer_key.der \
+            -o "bin/GoatFace-PARTIAL-missing-$(echo $ids | tr ' ' '-').iq"
+
+          mv manifest.full.xml manifest.xml
+          echo "PARTIAL=1" >> "$GITHUB_ENV"
 
       - name: Build side-loadable .prg files
         run: |
@@ -91,4 +136,5 @@ jobs:
           name: Goat Face ${{ github.ref_name }}
           generate_release_notes: true
           files: |
+            bin/*.iq
             bin/GoatFace_*.prg
