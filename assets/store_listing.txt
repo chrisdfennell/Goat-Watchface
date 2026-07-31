@@ -1,0 +1,93 @@
+Title
+=====
+Goat Face
+
+Alternatives, if "Goat Face" is taken:
+  Goat Face - Animated Goats
+  Goat Face: 16 Breeds
+  The Goat Face
+
+
+Description  (2,880 characters - the store allows 4,000)
+========================================================
+A goat looks back at you from your wrist, and it does not sit still.
+
+Every second your watch redraws, the goat moves. It blinks. It chews its cud to
+a slow rhythm. It flicks an ear at a fly and lets it settle. It glances off to
+one side and its head follows a beat later. Now and then it shakes its head,
+sticks out a pink tongue, or has a proper wide-jawed yawn with its eyes screwed
+shut.
+
+None of it is a canned loop. The pose is worked out from the clock itself, so
+the goat is caught mid-fidget whenever you happen to look down.
+
+SIXTEEN GOATS
+Each breed has its own coat, markings, ears, horns and beard:
+
+- Nubian - glossy chocolate, ears hanging past the jaw
+- Nigerian Dwarf - chocolate and white, blue eyes, wattles, short kid face
+- Alpine - black face with two white eye stripes, swept horns
+- Boer - rust-red head, broad white blaze, heavy floppy ears
+- Angora - cream fleece in ringlets, corkscrew horns, long beard
+- Pygmy - agouti grey with a dark bandit mask
+- LaMancha - the earless one, chocolate with tiny elf ears
+- Toggenburg - fawn with two white stripes down the face
+- Saanen - all white, pink muzzle, pale eyes
+- Wild Ibex - huge ridged scimitar horns
+- Black Bengal - jet black with amber eyes
+- Oberhasli - deep bay red under a black mask
+- Valais Blacknose - white ringlets, face black to the ears
+- Markhor - wild corkscrew horns and a beard to the chest
+- Golden Guernsey - blonde, ears carried low
+- Kiko - hardy cream with a big sweep of horn
+
+Pick your favourite, or leave it on Surprise Me for a new goat every hour, or
+every day.
+
+THE TIME
+The time is stamped into the leather noseband of the goat's halter, in the
+largest numeric font your watch can fit, and the date is written across its
+forehead. Prefer bare digits? Turn the strap off.
+
+SETTINGS
+- Goat: surprise hourly, surprise daily, or any of the sixteen
+- Liveliness: Still, Normal or Frisky - turn the fidgeting down, or off
+- Backdrop: Auto (dawn, daylight, dusk, night), Meadow, Slate or Black
+- Halter strap: on or off
+- Time colour: cream, white, gold, mint or sky
+- Show date: on or off
+- Two labelled data fields: steps, heart rate, calories, battery, Body Battery,
+  notifications, distance or active minutes
+
+DRAWN, NOT PHOTOGRAPHED
+There is no bitmap art in this watch face. Every horn, ear and rectangular pupil
+is drawn by the watch itself, in shapes measured against your exact screen, so
+it stays crisp on every panel from 218x218 up to 454x454 - and the colours are
+chosen to hold their shape on 64-colour memory-in-pixel displays as well as on
+AMOLED.
+
+On AMOLED watches, always-on mode shows a dim outline goat with its slot pupils
+and the time, nudged a few pixels each minute to protect the panel.
+
+Goats have rectangular pupils. They have wattles. They chew sideways. The
+details are the whole point.
+
+Free and open source: github.com/chrisdfennell/Goat-Watchface
+
+
+Keywords / tags
+===============
+goat, goats, animal, farm, cute, fun, animated, animation, breeds, nigerian
+dwarf, pygmy, nubian, boer, ibex, funny, character, pet, livestock, homestead,
+barn, kid, billy
+
+
+Notes for the submission form
+=============================
+- Category:  Watch Faces
+- Screenshots: assets/preview_breeds.png has all sixteen; assets/cover_image.png
+  and assets/hero_image.png are sized for the store artwork slots.
+- Upload the FULL GoatFace.iq built locally (release_local.ps1 / build.ps1
+  -Export). Do NOT upload the GoatFace-PARTIAL-missing-*.iq attached to GitHub
+  releases: CI's SDK is older and that package is missing fr70, fr170, fr170m
+  and d2mach2pro.

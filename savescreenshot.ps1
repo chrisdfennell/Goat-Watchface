@@ -37,6 +37,13 @@ public class Win32 {
     [DllImport("user32.dll")]
     public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
 
+    // Without this, on a display scaled above 100% Windows hands this process
+    // *logical* window coordinates while CopyFromScreen reads *physical* pixels.
+    // The two disagree by the scale factor, and you capture a crop of the bezel
+    // instead of the watch face.
+    [DllImport("user32.dll")]
+    public static extern bool SetProcessDPIAware();
+
     public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
     public class WindowInfo {
@@ -106,6 +113,9 @@ public class Win32 {
 "@
 
 Add-Type -TypeDefinition $Win32Code -ReferencedAssemblies System.Drawing
+
+# Ask for physical pixels before touching any window geometry.
+[Win32]::SetProcessDPIAware() | Out-Null
 
 $process = Get-Process -Name simulator -ErrorAction SilentlyContinue
 if (!$process) {
