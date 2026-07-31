@@ -1,5 +1,6 @@
 # Build output
 bin/
+release/
 
 # NEVER COMMIT THIS. developer_key.der is the private key your Connect IQ apps
 # are signed with; anyone who has it can publish to the store as you. Keep your
