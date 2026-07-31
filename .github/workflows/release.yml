@@ -71,37 +71,38 @@ jobs:
           # strip exactly the products it named and build again - and say so in
           # the artifact's name, so a partial package can never be mistaken for
           # the full one on the way to the store.
-          set +e
-          java -jar /connectiq/bin/monkeybrains.jar \
-            -e -f monkey.jungle -y developer_key.der -o bin/GoatFace.iq 2>&1 | tee iq.log
-          rc=${PIPESTATUS[0]}
-          set -e
-
-          if [ "$rc" -eq 0 ]; then
+          # NB: this runs under `sh`, not bash - no PIPESTATUS, no arrays.
+          if java -jar /connectiq/bin/monkeybrains.jar \
+               -e -f monkey.jungle -y developer_key.der \
+               -o bin/GoatFace.iq > iq.log 2>&1; then
+            cat iq.log
             echo "Full store package built - every product in the manifest."
             exit 0
           fi
 
+          cat iq.log
           if ! grep -q "are not recognized" iq.log; then
             echo "::error::.iq export failed for a reason other than unknown devices"
-            cat iq.log
             exit 1
           fi
 
-          ids=$(grep "are not recognized" iq.log | grep -o "'[A-Za-z0-9_]*'" | tr -d "'" | sort -u)
-          echo "::warning::SDK in this image does not know: $(echo $ids | tr '\n' ' ')- building a partial package without them"
+          ids=$(grep "are not recognized" iq.log \
+                | grep -o "'[A-Za-z0-9_]*'" | tr -d "'" | sort -u | tr '\n' ' ')
+          echo "::warning::SDK in this image does not know: ${ids}- building a partial package"
 
+          rm -f bin/GoatFace.iq          # never ship a half-written full package
           cp manifest.xml manifest.full.xml
           for d in $ids; do
-            sed -i "\#<iq:product id=\"$d\"/>#d" manifest.xml
+            grep -v "<iq:product id=\"$d\"/>" manifest.xml > manifest.tmp
+            mv manifest.tmp manifest.xml
           done
 
+          suffix=$(echo $ids | tr ' ' '-' | sed 's/-*$//')
           java -jar /connectiq/bin/monkeybrains.jar \
             -e -f monkey.jungle -y developer_key.der \
-            -o "bin/GoatFace-PARTIAL-missing-$(echo $ids | tr ' ' '-').iq"
+            -o "bin/GoatFace-PARTIAL-missing-$suffix.iq"
 
           mv manifest.full.xml manifest.xml
-          echo "PARTIAL=1" >> "$GITHUB_ENV"
 
       - name: Build side-loadable .prg files
         run: |
