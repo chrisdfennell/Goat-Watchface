@@ -1,10 +1,10 @@
 name: Release
 
-# Builds a store-ready .iq and side-loadable .prg files, then publishes them to a
-# GitHub Release whenever you push a version tag, e.g.:
+# Builds side-loadable .prg files and publishes them to a GitHub Release
+# whenever you push a version tag, e.g.:
 #
-#     git tag v1.0.0
-#     git push origin v1.0.0
+#     git tag v1.2.0
+#     git push origin v1.2.0
 #
 # ── One-time setup ────────────────────────────────────────────────────────────
 # Repository secret  GARMIN_DEVELOPER_KEY
@@ -13,14 +13,28 @@ name: Release
 #     Windows : [Convert]::ToBase64String([IO.File]::ReadAllBytes("developer_key.der")) | Set-Clipboard
 #     Linux   : base64 -w0 developer_key.der
 #
-# The Connect IQ SDK itself does NOT need to be installed — the job runs inside a
-# container image that already ships it.
+# ── About the store .iq ───────────────────────────────────────────────────────
+# This workflow deliberately does NOT build the store package. The .iq covers
+# every product in manifest.xml, and the newest Connect IQ container image
+# available (SDK 9.1.0) does not recognise the newest watches the manifest
+# targets — fr70, fr170, fr170m and d2mach2pro — so the export fails outright.
+# Garmin ships device definitions through the SDK Manager rather than in the SDK
+# download, so CI cannot simply fetch a newer SDK either.
+#
+# So: build the .iq locally with a current SDK and attach it to the release.
+#
+#     .\release_local.ps1
+#     gh release upload v1.2.0 release\GoatFace.iq
+#
+# When a container image with SDK 9.2.0 or later appears, restore the export
+# step here and drop the local dance.
 # ──────────────────────────────────────────────────────────────────────────────
 
 on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:          # lets you exercise the build without cutting a tag
 
 permissions:
   contents: write
@@ -29,11 +43,6 @@ jobs:
   build:
     name: Build and publish
     runs-on: ubuntu-latest
-    # 9.1.0 is the newest tag this image publishes (checked against the ghcr tag
-    # list). The manifest was authored against SDK 9.2.0, so if the export fails
-    # with an unknown product ID it will be one of the newest watches - either
-    # bump this tag once a 9.2.0 image exists, or drop that product from
-    # manifest.xml.
     container:
       image: ghcr.io/blackshadev/garmin-connectiq-tools:9.1.0
 
@@ -49,18 +58,13 @@ jobs:
           fi
           echo "${{ secrets.GARMIN_DEVELOPER_KEY }}" | base64 -d > developer_key.der
 
-      - name: Build Garmin packages
+      - name: Build side-loadable .prg files
         run: |
           mkdir -p bin
 
-          echo "Compiling store package (.iq)..."
-          java -jar /connectiq/bin/monkeybrains.jar \
-            -e \
-            -f monkey.jungle \
-            -y developer_key.der \
-            -o bin/GoatFace.iq
-
-          # Side-loadable .prg for every panel size the face targets:
+          # One per distinct panel size the face targets. Every id here is known
+          # to the SDK in the container image above; if you add a newer watch,
+          # check it builds before adding it to this list.
           #   fenix847mm       AMOLED 454 (fenix/tactix/quatix 8 47mm AND 51mm)
           #   fenix843mm       AMOLED 416 (fenix 8 43mm)
           #   fr165            AMOLED 390 (Forerunner 165)
@@ -78,12 +82,13 @@ jobs:
               -o "bin/GoatFace_${device}.prg" \
               -d "$device"
           done
+          ls -la bin/
 
       - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v3
         with:
           name: Goat Face ${{ github.ref_name }}
           generate_release_notes: true
           files: |
-            bin/GoatFace.iq
             bin/GoatFace_*.prg
