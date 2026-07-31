@@ -1,0 +1,67 @@
+name: Bug report
+description: Report something that looks wrong or doesn't work
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to file a bug! Please fill out the details below.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected to happen instead.
+      placeholder: The weather doodle shows rain even though it's sunny...
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      description: Which Garmin device (or simulator device id)?
+      placeholder: fenix847mm
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Watch firmware version
+      placeholder: "21.19"
+    validations:
+      required: false
+  - type: input
+    id: sdk
+    attributes:
+      label: Connect IQ SDK version (if building locally)
+      placeholder: "9.1.0"
+    validations:
+      required: false
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Display mode
+      options:
+        - Active (full brightness)
+        - Always-On / low-power
+        - Both
+        - Not relevant
+    validations:
+      required: false
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce it?
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag in simulator or photo screenshots if the issue is visual.
+    validations:
+      required: false

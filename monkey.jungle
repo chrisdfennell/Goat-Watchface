@@ -1,0 +1,8 @@
+project.manifest = manifest.xml
+
+# The goat is drawn entirely from Graphics primitives scaled by min(width, height),
+# so there is a single source and resource set for every panel. The only per-panel
+# resources are launcher icons, which live in resources-round-<W>x<H>/ and are picked
+# up automatically by the SDK's built-in device-family qualifiers.
+base.sourcePath = source
+base.resourcePath = resources

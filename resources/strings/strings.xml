@@ -1,0 +1,65 @@
+<resources>
+    <string id="AppName">Goat Face</string>
+
+    <!-- Setting titles -->
+    <string id="SetGoat">Goat</string>
+    <string id="SetBackdrop">Backdrop</string>
+    <string id="SetHalter">Halter strap</string>
+    <string id="SetHalterPrompt">Write the time on a leather noseband. Turn off for bare digits on the goat's face.</string>
+    <string id="SetTimeInk">Time colour</string>
+    <string id="SetFieldLeft">Bottom left</string>
+    <string id="SetFieldRight">Bottom right</string>
+    <string id="SetShowDate">Show date</string>
+    <string id="SetShowDatePrompt">Write the day and date across the goat's forehead.</string>
+    <string id="SetLiveliness">Liveliness</string>
+    <string id="SetLivelinessPrompt">How much the goat fidgets each second the screen is awake.</string>
+
+    <!-- Goats -->
+    <string id="GoatHourly">Surprise me (new goat each hour)</string>
+    <string id="GoatDaily">Surprise me (new goat each day)</string>
+    <string id="GoatNubian">Nubian</string>
+    <string id="GoatAlpine">Alpine</string>
+    <string id="GoatBoer">Boer</string>
+    <string id="GoatAngora">Angora</string>
+    <string id="GoatPygmy">Pygmy</string>
+    <string id="GoatLaMancha">LaMancha</string>
+    <string id="GoatToggenburg">Toggenburg</string>
+    <string id="GoatSaanen">Saanen</string>
+    <string id="GoatIbex">Wild Ibex</string>
+    <string id="GoatBengal">Black Bengal</string>
+    <string id="GoatNigerian">Nigerian Dwarf</string>
+    <string id="GoatOberhasli">Oberhasli</string>
+    <string id="GoatValais">Valais Blacknose</string>
+    <string id="GoatMarkhor">Markhor</string>
+    <string id="GoatGuernsey">Golden Guernsey</string>
+    <string id="GoatKiko">Kiko</string>
+
+    <!-- Backdrops -->
+    <string id="BackAuto">Auto (time of day)</string>
+    <string id="BackMeadow">Meadow</string>
+    <string id="BackSlate">Slate</string>
+    <string id="BackBlack">Black</string>
+
+    <!-- Time colours -->
+    <string id="InkCream">Cream</string>
+    <string id="InkWhite">White</string>
+    <string id="InkGold">Gold</string>
+    <string id="InkMint">Mint</string>
+    <string id="InkSky">Sky</string>
+
+    <!-- Data fields -->
+    <string id="FieldNone">Nothing</string>
+    <string id="FieldSteps">Steps</string>
+    <string id="FieldHeart">Heart rate</string>
+    <string id="FieldCalories">Calories</string>
+    <string id="FieldBattery">Battery</string>
+    <string id="FieldBodyBattery">Body Battery</string>
+    <string id="FieldNotifications">Notifications</string>
+    <string id="FieldDistance">Distance</string>
+    <string id="FieldActive">Active minutes</string>
+
+    <!-- Liveliness -->
+    <string id="LiveStill">Still</string>
+    <string id="LiveNormal">Normal</string>
+    <string id="LiveFrisky">Frisky</string>
+</resources>

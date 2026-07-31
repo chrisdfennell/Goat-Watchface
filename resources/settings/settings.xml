@@ -1,0 +1,89 @@
+<resources>
+    <settings>
+        <setting propertyKey="@Properties.Goat" title="@Strings.SetGoat">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.GoatHourly</listEntry>
+                <listEntry value="1">@Strings.GoatDaily</listEntry>
+                <listEntry value="2">@Strings.GoatNubian</listEntry>
+                <listEntry value="3">@Strings.GoatAlpine</listEntry>
+                <listEntry value="4">@Strings.GoatBoer</listEntry>
+                <listEntry value="5">@Strings.GoatAngora</listEntry>
+                <listEntry value="6">@Strings.GoatPygmy</listEntry>
+                <listEntry value="7">@Strings.GoatLaMancha</listEntry>
+                <listEntry value="8">@Strings.GoatToggenburg</listEntry>
+                <listEntry value="9">@Strings.GoatSaanen</listEntry>
+                <listEntry value="10">@Strings.GoatIbex</listEntry>
+                <listEntry value="11">@Strings.GoatBengal</listEntry>
+                <listEntry value="12">@Strings.GoatNigerian</listEntry>
+                <listEntry value="13">@Strings.GoatOberhasli</listEntry>
+                <listEntry value="14">@Strings.GoatValais</listEntry>
+                <listEntry value="15">@Strings.GoatMarkhor</listEntry>
+                <listEntry value="16">@Strings.GoatGuernsey</listEntry>
+                <listEntry value="17">@Strings.GoatKiko</listEntry>
+            </settingConfig>
+        </setting>
+
+        <setting propertyKey="@Properties.Liveliness" title="@Strings.SetLiveliness" prompt="@Strings.SetLivelinessPrompt">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.LiveStill</listEntry>
+                <listEntry value="1">@Strings.LiveNormal</listEntry>
+                <listEntry value="2">@Strings.LiveFrisky</listEntry>
+            </settingConfig>
+        </setting>
+
+        <setting propertyKey="@Properties.Backdrop" title="@Strings.SetBackdrop">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.BackAuto</listEntry>
+                <listEntry value="1">@Strings.BackMeadow</listEntry>
+                <listEntry value="2">@Strings.BackSlate</listEntry>
+                <listEntry value="3">@Strings.BackBlack</listEntry>
+            </settingConfig>
+        </setting>
+
+        <setting propertyKey="@Properties.Halter" title="@Strings.SetHalter" prompt="@Strings.SetHalterPrompt">
+            <settingConfig type="boolean" />
+        </setting>
+
+        <setting propertyKey="@Properties.TimeInk" title="@Strings.SetTimeInk">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.InkCream</listEntry>
+                <listEntry value="1">@Strings.InkWhite</listEntry>
+                <listEntry value="2">@Strings.InkGold</listEntry>
+                <listEntry value="3">@Strings.InkMint</listEntry>
+                <listEntry value="4">@Strings.InkSky</listEntry>
+            </settingConfig>
+        </setting>
+
+        <setting propertyKey="@Properties.ShowDate" title="@Strings.SetShowDate" prompt="@Strings.SetShowDatePrompt">
+            <settingConfig type="boolean" />
+        </setting>
+
+        <setting propertyKey="@Properties.FieldLeft" title="@Strings.SetFieldLeft">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.FieldNone</listEntry>
+                <listEntry value="1">@Strings.FieldSteps</listEntry>
+                <listEntry value="2">@Strings.FieldHeart</listEntry>
+                <listEntry value="3">@Strings.FieldCalories</listEntry>
+                <listEntry value="4">@Strings.FieldBattery</listEntry>
+                <listEntry value="5">@Strings.FieldBodyBattery</listEntry>
+                <listEntry value="6">@Strings.FieldNotifications</listEntry>
+                <listEntry value="7">@Strings.FieldDistance</listEntry>
+                <listEntry value="8">@Strings.FieldActive</listEntry>
+            </settingConfig>
+        </setting>
+
+        <setting propertyKey="@Properties.FieldRight" title="@Strings.SetFieldRight">
+            <settingConfig type="list">
+                <listEntry value="0">@Strings.FieldNone</listEntry>
+                <listEntry value="1">@Strings.FieldSteps</listEntry>
+                <listEntry value="2">@Strings.FieldHeart</listEntry>
+                <listEntry value="3">@Strings.FieldCalories</listEntry>
+                <listEntry value="4">@Strings.FieldBattery</listEntry>
+                <listEntry value="5">@Strings.FieldBodyBattery</listEntry>
+                <listEntry value="6">@Strings.FieldNotifications</listEntry>
+                <listEntry value="7">@Strings.FieldDistance</listEntry>
+                <listEntry value="8">@Strings.FieldActive</listEntry>
+            </settingConfig>
+        </setting>
+    </settings>
+</resources>

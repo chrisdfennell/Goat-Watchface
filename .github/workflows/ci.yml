@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    name: Validate project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Check required files exist
+        run: |
+          set -e
+          missing=0
+          for f in manifest.xml monkey.jungle source/GoatFaceApp.mc source/GoatFaceView.mc source/GoatArtist.mc source/Breeds.mc; do
+            if [ ! -f "$f" ]; then
+              echo "::error::Missing required file: $f"
+              missing=1
+            fi
+          done
+          [ "$missing" = "0" ] && echo "All required files present."
+          exit $missing
+
+      - name: Validate XML is well-formed
+        run: |
+          python3 - <<'PY'
+          import sys, glob, xml.dom.minidom as minidom
+          # Covers the base resources plus the per-resolution resource folders
+          # (resources-round-416x416 ... 218x218).
+          files = ["manifest.xml"] + glob.glob("resources*/**/*.xml", recursive=True)
+          bad = 0
+          for f in files:
+              try:
+                  minidom.parse(f)
+                  print(f"ok:    {f}")
+              except Exception as e:
+                  print(f"::error file={f}::{e}")
+                  bad += 1
+          sys.exit(1 if bad else 0)
+          PY
+
+# NOTE: A full Monkey C compile in CI requires a developer key. That is wired up
+# in release.yml (which runs on version tags) using a container image that ships
+# the Connect IQ SDK. See that file for the one-time GARMIN_DEVELOPER_KEY secret.

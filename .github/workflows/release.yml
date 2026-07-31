@@ -1,0 +1,87 @@
+name: Release
+
+# Builds a store-ready .iq and side-loadable .prg files, then publishes them to a
+# GitHub Release whenever you push a version tag, e.g.:
+#
+#     git tag v1.0.0
+#     git push origin v1.0.0
+#
+# ── One-time setup ────────────────────────────────────────────────────────────
+# Repository secret  GARMIN_DEVELOPER_KEY
+#   Settings → Secrets and variables → Actions → Secrets → New repository secret.
+#   Base64-encode your developer key and paste the result:
+#     Windows : [Convert]::ToBase64String([IO.File]::ReadAllBytes("developer_key.der")) | Set-Clipboard
+#     Linux   : base64 -w0 developer_key.der
+#
+# The Connect IQ SDK itself does NOT need to be installed — the job runs inside a
+# container image that already ships it.
+# ──────────────────────────────────────────────────────────────────────────────
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    # Keep this tag at or above the SDK that manifest.xml was authored against -
+    # an older SDK does not know the newest product IDs and the build will fail
+    # on an unknown device.
+    container:
+      image: ghcr.io/blackshadev/garmin-connectiq-tools:9.2.0
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Decode developer key
+        run: |
+          if [ -z "${{ secrets.GARMIN_DEVELOPER_KEY }}" ]; then
+            echo "Error: GARMIN_DEVELOPER_KEY secret is not set!" >&2
+            exit 1
+          fi
+          echo "${{ secrets.GARMIN_DEVELOPER_KEY }}" | base64 -d > developer_key.der
+
+      - name: Build Garmin packages
+        run: |
+          mkdir -p bin
+
+          echo "Compiling store package (.iq)..."
+          java -jar /connectiq/bin/monkeybrains.jar \
+            -e \
+            -f monkey.jungle \
+            -y developer_key.der \
+            -o bin/GoatFace.iq
+
+          # Side-loadable .prg for every panel size the face targets:
+          #   fenix847mm       AMOLED 454 (fenix/tactix/quatix 8 47mm AND 51mm)
+          #   fenix843mm       AMOLED 416 (fenix 8 43mm)
+          #   fr165            AMOLED 390 (Forerunner 165)
+          #   fr265s           AMOLED 360 (Forerunner 265S)
+          #   fenix8solar51mm  MIP 280 (tactix/fenix 8 Solar 51mm)
+          #   fenix8solar47mm  MIP 260 (fenix 8 Solar 47mm)
+          #   fenix7s          MIP 240 (fenix 7S)
+          #   fr255s           MIP 218 (Forerunner 255S)
+          #   fr965            AMOLED 454 (Forerunner 965)
+          for device in fenix847mm fenix843mm fr165 fr265s fenix8solar51mm fenix8solar47mm fenix7s fr255s fr965; do
+            echo "Compiling .prg for $device..."
+            java -jar /connectiq/bin/monkeybrains.jar \
+              -f monkey.jungle \
+              -y developer_key.der \
+              -o "bin/GoatFace_${device}.prg" \
+              -d "$device"
+          done
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          name: Goat Face ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            bin/GoatFace.iq
+            bin/GoatFace_*.prg

@@ -1,0 +1,9 @@
+version: 2
+updates:
+  # Keep the GitHub Actions used in CI / release workflows up to date.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"

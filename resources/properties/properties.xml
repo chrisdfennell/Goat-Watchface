@@ -1,0 +1,17 @@
+<resources>
+    <properties>
+        <!-- 0 = surprise hourly, 1 = surprise daily, 2.. = a specific goat -->
+        <property id="Goat" type="number">0</property>
+        <!-- 0 auto, 1 meadow, 2 slate, 3 black -->
+        <property id="Backdrop" type="number">0</property>
+        <property id="Halter" type="boolean">true</property>
+        <!-- 0 cream, 1 white, 2 gold, 3 mint, 4 sky -->
+        <property id="TimeInk" type="number">0</property>
+        <!-- 0 none, 1 steps, 2 heart rate, 3 calories, 4 battery, 5 body battery, 6 notifications -->
+        <property id="FieldLeft" type="number">1</property>
+        <property id="FieldRight" type="number">4</property>
+        <property id="ShowDate" type="boolean">true</property>
+        <!-- 0 still, 1 normal, 2 frisky -->
+        <property id="Liveliness" type="number">1</property>
+    </properties>
+</resources>
