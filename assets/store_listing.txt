@@ -8,7 +8,7 @@ Alternatives, if "Goat Face" is taken:
   The Goat Face
 
 
-Description  (2,880 characters - the store allows 4,000)
+Description  (3,592 characters - the store allows 4,000)
 ========================================================
 A goat looks back at you from your wrist, and it does not sit still.
 
@@ -47,17 +47,31 @@ every day.
 THE TIME
 The time is stamped into the leather noseband of the goat's halter, in the
 largest numeric font your watch can fit, and the date is written across its
-forehead. Prefer bare digits? Turn the strap off.
+forehead. On a 12-hour watch AM or PM sits beside the digits. Prefer bare
+digits? Turn the strap off.
+
+IT KNOWS HOW YOUR DAY IS GOING
+The goat takes its mood from you. When your Body Battery runs low it slows
+down and its eyelids start to hang; when your move bar has been filling up it
+gets twitchy and paces. Your step goal runs round the rim of the screen as it
+fills. Neither is a badge or a popup - the goat simply behaves differently, and
+you notice.
+
+Want none of it? "Just the goat" is one switch that clears the date, both data
+fields and the goal ring, and leaves you a goat and the time.
 
 SETTINGS
 - Goat: surprise hourly, surprise daily, or any of the sixteen
 - Liveliness: Still, Normal or Frisky - turn the fidgeting down, or off
+- Goat shares your mood: on or off
 - Backdrop: Auto (dawn, daylight, dusk, night), Meadow, Slate or Black
 - Halter strap: on or off
 - Time colour: cream, white, gold, mint or sky
+- Just the goat: hide every reading in one switch
 - Show date: on or off
 - Two labelled data fields: steps, heart rate, calories, battery, Body Battery,
   notifications, distance or active minutes
+- Step goal ring: on or off
 
 DRAWN, NOT PHOTOGRAPHED
 There is no bitmap art in this watch face. Every horn, ear and rectangular pupil
@@ -66,8 +80,9 @@ it stays crisp on every panel from 218x218 up to 454x454 - and the colours are
 chosen to hold their shape on 64-colour memory-in-pixel displays as well as on
 AMOLED.
 
-On AMOLED watches, always-on mode shows a dim outline goat with its slot pupils
-and the time, nudged a few pixels each minute to protect the panel.
+On AMOLED watches, always-on mode shows a dim outline goat with its slot pupils,
+the time in the colour you picked and the date if you want it, nudged a few
+pixels each minute to protect the panel.
 
 Goats have rectangular pupils. They have wattles. They chew sideways. The
 details are the whole point.

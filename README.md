@@ -7,7 +7,10 @@ head, sticks its pink tongue out, and every so often has a proper yawn. The head
 rocks about the neck rather than sliding, so it wiggles in place.
 
 The time is stamped into the leather noseband of its halter; the date is written
-across its forehead.
+across its forehead, and your step goal runs round the rim.
+
+It also takes its mood from you: a low Body Battery slows it down and weighs its
+eyelids, and a move bar that has been filling up makes it twitchy.
 
 ![the herd](assets/preview_breeds.png)
 
