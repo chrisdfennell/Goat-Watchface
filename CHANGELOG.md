@@ -4,6 +4,33 @@ All notable changes to Goat Face are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project aims to
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-08-01
+
+### Added
+- **The goat shares your mood.** When your Body Battery is low it slows down and
+  its eyelids sit heavy; when your move bar has been filling up it gets twitchy.
+  Both are read at most once every five minutes and cached, so the once-a-second
+  redraw costs nothing extra. Turn it off with **Goat shares your mood**.
+- **A step goal ring** round the rim: an unlit track the whole way round and a
+  lit arc for the part of today's goal that is done, clockwise from twelve, in
+  the same green the STEPS field uses.
+- **Just the goat** - one switch that hides the date, both data fields and the
+  goal ring, leaving only the goat and the time. The individual settings keep
+  their values and come back when you turn it off.
+- **AM or PM** beside the digits on a 12-hour watch, which the face could not
+  tell you before. It is drawn in the small font because Garmin's numeric fonts
+  carry digits and a colon and nothing else, and it is dropped rather than moved
+  on panels too narrow to fit it beside the time.
+
+### Changed
+- **Always-On mode honours your settings.** It drew the time in a fixed grey and
+  never showed the date, which on an AMOLED watch is the face you see for most
+  of the day. It now uses your Time colour and shows the date if you have it on,
+  both dimmed hard to stay inside the burn-in pixel budget. Data fields stay off
+  there deliberately - they would mean waking a sensor once a minute all night.
+- `ActivityMonitor` is read once per redraw and passed down rather than fetched
+  again by each data field.
+
 ## [1.1.1] - 2026-07-31
 
 ### Added

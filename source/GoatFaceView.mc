@@ -22,6 +22,10 @@ class GoatFaceView extends WatchUi.WatchFace {
     hidden var mLowPower as Boolean = false;
     hidden var mBurnIn as Boolean = false;
 
+    // Read once per redraw and passed down, rather than fetched again by every
+    // field: the goal ring, both fields and the mood all want the same info.
+    hidden var mAct as ActivityMonitor.Info?;
+
     // Text ink options for the time, in the order the setting lists them.
     hidden const INKS = [0xF3E7CC, 0xFFFFFF, 0xF5C542, 0x9FE0C0, 0x9FD0F0] as Array<Number>;
     hidden const FIELD_INK = 0xF2E8D5;
@@ -83,18 +87,24 @@ class GoatFaceView extends WatchUi.WatchFace {
         var breed = currentBreed();
 
         if (mLowPower && mBurnIn) {
+            // Nothing below the outline is drawn asleep, so do not spend the
+            // sensor reads working out how the goat feels about it.
             drawAlwaysOn(dc, breed, clock);
             return;
         }
 
+        mAct = ActivityMonitor.getInfo();
+        Mood.refresh(mAct);
+
         // One second of the clock is one frame of the animation.
         var t = clock.min * 60 + clock.sec;
-        mPose.update(t, mArtist.S, mLowPower ? 0.0 : Config.motion());
+        mPose.update(t, mArtist.S, mLowPower ? 0.0 : Config.motion() * Mood.factor(),
+                     Mood.weariness());
 
-        mArtist.drawBackdrop(dc, backdropColor(clock.hour));
+        mArtist.drawBackdrop(dc, backdropColor(clock.hour), stepProgress());
         mArtist.draw(dc, breed, mPose);
 
-        if (Config.showDate) {
+        if (Config.dateVisible()) {
             drawDate(dc, breed);
         }
 
@@ -159,6 +169,25 @@ class GoatFaceView extends WatchUi.WatchFace {
         return 0x0E1626;       // night
     }
 
+    //! How far through today's step goal, or a negative number if the ring is
+    //! off or the watch has not told us what the goal is.
+    hidden function stepProgress() as Float {
+        if (!Config.ringVisible()) {
+            return -1.0;
+        }
+        var info = mAct;
+        if (info == null) {
+            return -1.0;
+        }
+        var steps = info.steps;
+        var goal = info.stepGoal;
+        if (steps == null || goal == null || goal <= 0) {
+            return -1.0;
+        }
+        var p = steps * 1.0 / goal;
+        return (p > 1.0) ? 1.0 : p;
+    }
+
     // --------------------------------------------------------------- text
 
     hidden function drawTime(dc as Dc, clock as System.ClockTime) as Void {
@@ -175,6 +204,34 @@ class GoatFaceView extends WatchUi.WatchFace {
         dc.setColor(ink, Graphics.COLOR_TRANSPARENT);
         dc.drawText(mArtist.cx, y, mTimeFont, timeStr,
                     Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        drawMeridiem(dc, clock, timeStr, mArtist.cx, y, GoatArtist.tint(ink, 0.80));
+    }
+
+    //! AM or PM beside the digits, which is otherwise the one thing a 12-hour
+    //! face cannot tell you. It goes in the small font because the numeric fonts
+    //! carry digits and a colon and nothing else - letters come out blank.
+    //!
+    //! It sits just past the digits, and is dropped rather than moved if that
+    //! would put it under the round edge - on the narrowest panels a legible
+    //! clock is worth more than the marker, and nowhere else on the strap is
+    //! clear of the time.
+    hidden function drawMeridiem(dc as Dc, clock as System.ClockTime, timeStr as String,
+                                 cx as Number, y as Number, color as Number) as Void {
+        if (System.getDeviceSettings().is24Hour) {
+            return;
+        }
+        var text = (clock.hour < 12) ? "AM" : "PM";
+        var right = cx + dc.getTextWidthInPixels(timeStr, mTimeFont) / 2
+                       + (mArtist.S * 0.020).toNumber();
+        var limit = mArtist.w - (mArtist.S * 0.035).toNumber()
+                              - dc.getTextWidthInPixels(text, mSmallFont);
+        if (limit < right) {
+            return;
+        }
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(right, y, mSmallFont, text,
+                    Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
     hidden function formatTime(clock as System.ClockTime) as String {
@@ -231,8 +288,8 @@ class GoatFaceView extends WatchUi.WatchFace {
         var tight = mArtist.S < 280;
         var y = mArtist.cy + (mArtist.S * (tight ? 0.300 : 0.322)).toNumber();
         var dx = (mArtist.S * (tight ? 0.240 : 0.265)).toNumber();
-        drawField(dc, Config.fieldLeft, mArtist.cx - dx, y);
-        drawField(dc, Config.fieldRight, mArtist.cx + dx, y);
+        drawField(dc, Config.leftField(), mArtist.cx - dx, y);
+        drawField(dc, Config.rightField(), mArtist.cx + dx, y);
     }
 
     //! Short caption for a field, so the numbers at the bottom are not a riddle.
@@ -258,11 +315,11 @@ class GoatFaceView extends WatchUi.WatchFace {
         var color = FIELD_INK;
 
         if (kind == Config.FIELD_STEPS) {
-            var info = ActivityMonitor.getInfo();
+            var info = mAct;
             if (info != null && info.steps != null) {
                 text = shortCount(info.steps);
             }
-            color = 0xA6DDA6;
+            color = GoatArtist.STEP_INK;
 
         } else if (kind == Config.FIELD_HEART) {
             var hr = heartRate();
@@ -272,7 +329,7 @@ class GoatFaceView extends WatchUi.WatchFace {
             color = 0xF08A8A;
 
         } else if (kind == Config.FIELD_CALORIES) {
-            var info2 = ActivityMonitor.getInfo();
+            var info2 = mAct;
             if (info2 != null && info2.calories != null) {
                 text = shortCount(info2.calories);
             }
@@ -290,7 +347,7 @@ class GoatFaceView extends WatchUi.WatchFace {
             }
 
         } else if (kind == Config.FIELD_BODY_BATTERY) {
-            var bb = bodyBattery();
+            var bb = Mood.bodyBattery();
             if (bb != null) {
                 text = bb.format("%d");
             }
@@ -302,7 +359,7 @@ class GoatFaceView extends WatchUi.WatchFace {
             color = 0xF0E090;
 
         } else if (kind == Config.FIELD_DISTANCE) {
-            var info3 = ActivityMonitor.getInfo();
+            var info3 = mAct;
             if (info3 != null && info3.distance != null) {
                 // ActivityMonitor reports centimetres.
                 var metres = info3.distance / 100.0;
@@ -315,7 +372,7 @@ class GoatFaceView extends WatchUi.WatchFace {
             color = 0xB8C8E8;
 
         } else if (kind == Config.FIELD_ACTIVE) {
-            var info4 = ActivityMonitor.getInfo();
+            var info4 = mAct;
             if (info4 != null && info4.activeMinutesDay != null
                 && info4.activeMinutesDay.total != null) {
                 text = info4.activeMinutesDay.total.format("%d");
@@ -360,28 +417,15 @@ class GoatFaceView extends WatchUi.WatchFace {
         return null;
     }
 
-    hidden function bodyBattery() as Number? {
-        if (!(Toybox has :SensorHistory)) {
-            return null;
-        }
-        if (!(Toybox.SensorHistory has :getBodyBatteryHistory)) {
-            return null;
-        }
-        var iter = Toybox.SensorHistory.getBodyBatteryHistory({:period => 1});
-        if (iter == null) {
-            return null;
-        }
-        var sample = iter.next();
-        if (sample != null && sample.data != null) {
-            return sample.data.toNumber();
-        }
-        return null;
-    }
-
     // ------------------------------------------------------------ always on
 
     //! AMOLED sleep: a dim outline goat that shifts a few pixels every minute so
     //! nothing is ever burnt into the panel.
+    //!
+    //! Your Time colour and your date setting are honoured here, because on an
+    //! always-on watch this is the face for most of the day. Both are dimmed
+    //! hard - only a few percent of the panel may be lit - and the data fields
+    //! stay off, since they would mean waking a sensor once a minute all night.
     hidden function drawAlwaysOn(dc as Dc, breed as Breed, clock as System.ClockTime) as Void {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
@@ -391,8 +435,23 @@ class GoatFaceView extends WatchUi.WatchFace {
 
         mArtist.drawOutline(dc, breed, ox, oy, 0x555555);
 
-        dc.setColor(0xAAAAAA, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(mArtist.cx + ox, mArtist.strapCy + oy, mTimeFont, formatTime(clock),
+        if (Config.dateVisible()) {
+            var info = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
+            dc.setColor(0x6E6E6E, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(mArtist.cx + ox,
+                        mArtist.cy - (mArtist.S * 0.265).toNumber() + oy,
+                        mSmallFont,
+                        info.day_of_week.toString().toUpper() + " " + info.day.format("%d"),
+                        Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+
+        var timeStr = formatTime(clock);
+        var ink = GoatArtist.tint(INKS[Config.timeInk], 0.62);
+        dc.setColor(ink, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(mArtist.cx + ox, mArtist.strapCy + oy, mTimeFont, timeStr,
                     Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        drawMeridiem(dc, clock, timeStr, mArtist.cx + ox, mArtist.strapCy + oy,
+                     GoatArtist.tint(ink, 0.80));
     }
 }

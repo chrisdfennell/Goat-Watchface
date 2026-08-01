@@ -44,6 +44,9 @@ module Config {
     var fieldLeft as Number = FIELD_STEPS;
     var fieldRight as Number = FIELD_BATTERY;
     var showDate as Boolean = true;
+    var minimal as Boolean = false;
+    var goalRing as Boolean = true;
+    var mood as Boolean = true;
     var liveliness as Number = LIVE_NORMAL;
 
     function load() as Void {
@@ -54,7 +57,32 @@ module Config {
         fieldLeft = numberOf("FieldLeft", FIELD_STEPS, 0, FIELD_MAX);
         fieldRight = numberOf("FieldRight", FIELD_BATTERY, 0, FIELD_MAX);
         showDate = boolOf("ShowDate", true);
+        minimal = boolOf("Minimal", false);
+        goalRing = boolOf("GoalRing", true);
+        mood = boolOf("Mood", true);
         liveliness = numberOf("Liveliness", LIVE_NORMAL, 0, 2);
+    }
+
+    // ------------------------------------------------------ what is on screen
+    //
+    // "Just the goat" is a master switch rather than a fourth way of saying the
+    // same thing, so it is applied here and every reader goes through these.
+    // The underlying settings keep their values and come back when it is off.
+
+    function dateVisible() as Boolean {
+        return showDate && !minimal;
+    }
+
+    function leftField() as Number {
+        return minimal ? FIELD_NONE : fieldLeft;
+    }
+
+    function rightField() as Number {
+        return minimal ? FIELD_NONE : fieldRight;
+    }
+
+    function ringVisible() as Boolean {
+        return goalRing && !minimal;
     }
 
     //! Motion multiplier for the fidget animation.

@@ -11,6 +11,12 @@
     <string id="SetFieldRight">Bottom right</string>
     <string id="SetShowDate">Show date</string>
     <string id="SetShowDatePrompt">Write the day and date across the goat's forehead.</string>
+    <string id="SetMinimal">Just the goat</string>
+    <string id="SetMinimalPrompt">Hide the date, both data fields and the goal ring, leaving only the goat and the time. The settings below are remembered and come back when you turn this off.</string>
+    <string id="SetGoalRing">Step goal ring</string>
+    <string id="SetGoalRingPrompt">Draw today's progress towards your step goal round the edge of the screen.</string>
+    <string id="SetMood">Goat shares your mood</string>
+    <string id="SetMoodPrompt">The goat slows down and its eyes grow heavy when your Body Battery is low, and fidgets when your move bar has been filling up.</string>
     <string id="SetLiveliness">Liveliness</string>
     <string id="SetLivelinessPrompt">How much the goat fidgets each second the screen is awake.</string>
 

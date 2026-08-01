@@ -11,6 +11,12 @@
         <property id="FieldLeft" type="number">1</property>
         <property id="FieldRight" type="number">4</property>
         <property id="ShowDate" type="boolean">true</property>
+        <!-- Hide the date, both fields and the goal ring in one go -->
+        <property id="Minimal" type="boolean">false</property>
+        <!-- Step goal drawn round the rim -->
+        <property id="GoalRing" type="boolean">true</property>
+        <!-- Let Body Battery and the move bar colour the goat's mood -->
+        <property id="Mood" type="boolean">true</property>
         <!-- 0 still, 1 normal, 2 frisky -->
         <property id="Liveliness" type="number">1</property>
     </properties>

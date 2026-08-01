@@ -31,6 +31,10 @@
             </settingConfig>
         </setting>
 
+        <setting propertyKey="@Properties.Mood" title="@Strings.SetMood" prompt="@Strings.SetMoodPrompt">
+            <settingConfig type="boolean" />
+        </setting>
+
         <setting propertyKey="@Properties.Backdrop" title="@Strings.SetBackdrop">
             <settingConfig type="list">
                 <listEntry value="0">@Strings.BackAuto</listEntry>
@@ -52,6 +56,10 @@
                 <listEntry value="3">@Strings.InkMint</listEntry>
                 <listEntry value="4">@Strings.InkSky</listEntry>
             </settingConfig>
+        </setting>
+
+        <setting propertyKey="@Properties.Minimal" title="@Strings.SetMinimal" prompt="@Strings.SetMinimalPrompt">
+            <settingConfig type="boolean" />
         </setting>
 
         <setting propertyKey="@Properties.ShowDate" title="@Strings.SetShowDate" prompt="@Strings.SetShowDatePrompt">
@@ -84,6 +92,10 @@
                 <listEntry value="7">@Strings.FieldDistance</listEntry>
                 <listEntry value="8">@Strings.FieldActive</listEntry>
             </settingConfig>
+        </setting>
+
+        <setting propertyKey="@Properties.GoalRing" title="@Strings.SetGoalRing" prompt="@Strings.SetGoalRingPrompt">
+            <settingConfig type="boolean" />
         </setting>
     </settings>
 </resources>

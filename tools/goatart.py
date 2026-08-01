@@ -30,6 +30,7 @@ HINGE = 0.34
 LEATHER = 0x46301E
 CREAM = 0xF3E7CC
 STITCH = 0xC9A96A
+STEP_INK = 0xA6DDA6
 MEADOW = 0x265B26
 SLATE = 0x2E3338
 DAYLIGHT = 0x1A5E9E
@@ -294,16 +295,32 @@ class Artist(object):
         self.d.ellipse([x - a, y - b, x + a, y + b], fill=fill)
 
     # -- backdrop
-    def backdrop(self, color):
+    def backdrop(self, color, progress=-1.0):
         self.d.rectangle([self.cx - self.S, self.cy - self.S, self.cx + self.S, self.cy + self.S],
                          fill=rgb(color))
-        if not self.fine:
-            return
-        r = self.S // 2
-        ring = max(3, self.f(0.030))
-        self.d.ellipse([self.cx - r + ring // 2, self.cy - r + ring // 2,
-                        self.cx + r - ring // 2, self.cy + r - ring // 2],
-                       outline=tint(color, 0.80), width=ring)
+        if self.fine:
+            r = self.S // 2
+            ring = max(3, self.f(0.030))
+            self.d.ellipse([self.cx - r + ring // 2, self.cy - r + ring // 2,
+                            self.cx + r - ring // 2, self.cy + r - ring // 2],
+                           outline=tint(color, 0.80), width=ring)
+        if progress >= 0.0:
+            self.goal_ring(color, progress)
+
+    def goal_ring(self, back, progress):
+        pen = max(3, self.f(0.022))
+        rad = self.S // 2 - pen // 2 - 1
+        box = [self.cx - rad, self.cy - rad, self.cx + rad, self.cy + rad]
+        self.d.ellipse(box, outline=tint(back, 0.62), width=pen)
+        if progress >= 0.01:
+            if progress >= 1.0:
+                self.d.ellipse(box, outline=rgb(STEP_INK), width=pen)
+            else:
+                # PIL measures degrees clockwise from three o'clock, so twelve
+                # o'clock is -90. Monkey C counts the other way round from the
+                # same place, which is why the two calls do not look alike.
+                self.d.arc(box, -90, -90 + int(progress * 360),
+                           fill=rgb(STEP_INK), width=pen)
 
     # -- goat
     def draw(self, b, p):
@@ -608,8 +625,9 @@ def _font(size):
 
 def render_face(size, breed=0, t=None, backdrop=DAYLIGHT, halter=True,
                 time_text="10:08", date_text="FRI JUL 31",
-                fields=(("STEPS", "8,241", 0xA6DDA6), ("BATT", "87%", 0xA6DDA6)),
-                motion=1.0, round_mask=True):
+                fields=(("STEPS", "8,241", STEP_INK), ("BATT", "87%", STEP_INK)),
+                motion=1.0, round_mask=True, progress=-1.0, meridiem=None,
+                weary=0.0):
     """A full watch face, drawn the way GoatFaceView.onUpdate would draw it."""
     big = size * SS
     img = Image.new("RGBA", (big, big), (0, 0, 0, 0))
@@ -617,8 +635,10 @@ def render_face(size, breed=0, t=None, backdrop=DAYLIGHT, halter=True,
     art = Artist(d, big)
     b = BREEDS[breed % len(BREEDS)]
     p = Pose(t, unit=big, motion=motion)
+    if weary > 0.0 and p.blink < weary:
+        p.blink = weary
 
-    art.backdrop(backdrop)
+    art.backdrop(backdrop, progress)
     art.draw(b, p)
 
     if date_text:
@@ -635,6 +655,10 @@ def render_face(size, breed=0, t=None, backdrop=DAYLIGHT, halter=True,
         art.halter()
     tf = _font(int(art.strapH * 0.78))
     d.text((art.cx, art.strapCy), time_text, font=tf, fill=rgb(CREAM), anchor="mm")
+    if meridiem:
+        d.text((art.cx + d.textlength(time_text, font=tf) / 2 + int(big * 0.020),
+                art.strapCy), meridiem, font=_font(int(big * 0.055)),
+               fill=tint(CREAM, 0.80), anchor="lm")
 
     if fields:
         f = _font(int(big * 0.055))

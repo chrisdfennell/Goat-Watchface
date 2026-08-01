@@ -14,6 +14,11 @@ import Toybox.Math;
 //! hinged near the neck, so the head rocks in place rather than sliding sideways.
 class GoatArtist {
 
+    // The green steps are drawn in, shared with the STEPS data field so the ring
+    // and the number under it are plainly the same measurement. Lands on
+    // 0xAAFFAA in the 64-colour MIP palette.
+    static const STEP_INK = 0xA6DDA6;
+
     // Screen
     var w as Number = 0;
     var h as Number = 0;
@@ -104,19 +109,53 @@ class GoatArtist {
 
     // ------------------------------------------------------------- backdrop
 
-    function drawBackdrop(dc as Dc, color as Number) as Void {
+    //! progress: how much of the step goal is done, 0.0 .. 1.0, or a negative
+    //! number for no ring at all.
+    function drawBackdrop(dc as Dc, color as Number, progress as Float) as Void {
         dc.setColor(color, color);
         dc.clear();
-        if (!fine) {
-            return;
+
+        if (fine) {
+            // A soft vignette so the head reads against the rim on round panels.
+            var r = S / 2;
+            var ring = f(0.030);
+            if (ring < 3) { ring = 3; }
+            dc.setPenWidth(ring);
+            ink(dc, tint(color, 0.80));
+            dc.drawCircle(cx, cy, r - ring / 2);
+            dc.setPenWidth(1);
         }
-        // A soft vignette so the head reads against the rim on round panels.
-        var r = S / 2;
-        var ring = f(0.030);
-        if (ring < 3) { ring = 3; }
-        dc.setPenWidth(ring);
-        ink(dc, tint(color, 0.80));
-        dc.drawCircle(cx, cy, r - ring / 2);
+
+        if (progress >= 0.0) {
+            drawGoalRing(dc, color, progress);
+        }
+    }
+
+    //! The step goal round the rim: an unlit track the whole way round, and a
+    //! lit arc for the part that is done, running clockwise from twelve.
+    hidden function drawGoalRing(dc as Dc, back as Number, progress as Float) as Void {
+        var pen = f(0.022);
+        if (pen < 3) { pen = 3; }
+        var rad = S / 2 - pen / 2 - 1;
+
+        dc.setPenWidth(pen);
+        ink(dc, tint(back, 0.62));
+        dc.drawCircle(cx, cy, rad);
+
+        // Below a percent the arc is shorter than the pen is wide, and Garmin
+        // reads a zero-length arc as a whole circle - which would show the goal
+        // already met.
+        if (progress >= 0.01) {
+            ink(dc, STEP_INK);
+            if (progress >= 1.0) {
+                dc.drawCircle(cx, cy, rad);
+            } else {
+                // Arc degrees run counter-clockwise from three o'clock.
+                var end = 90 - (progress * 360).toNumber();
+                if (end < 0) { end += 360; }
+                dc.drawArc(cx, cy, rad, Graphics.ARC_CLOCKWISE, 90, end);
+            }
+        }
         dc.setPenWidth(1);
     }
 

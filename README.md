@@ -33,11 +33,17 @@ hour (or every day).
 |---|---|
 | Goat | Surprise hourly / Surprise daily / any of the sixteen breeds |
 | Liveliness | Still, Normal, Frisky — scales all the fidgeting, including off |
+| Goat shares your mood | The goat slows and its lids sag on a low Body Battery, and fidgets as your move bar fills |
 | Backdrop | Auto (dawn/day/dusk/night), Meadow, Slate, Black |
 | Halter strap | On (time on the noseband) / off (bare digits with a shadow) |
 | Time colour | Cream, White, Gold, Mint, Sky |
+| Just the goat | Hides the date, both fields and the goal ring in one switch; the settings below are remembered |
 | Show date | Written across the forehead |
 | Bottom left / right | Nothing, Steps, Heart rate, Calories, Battery, Body Battery, Notifications, Distance, Active minutes |
+| Step goal ring | Today's progress round the rim |
+
+On a 12-hour watch **AM/PM** is written beside the digits, unless the panel is
+too narrow to fit it there without crowding the time.
 
 ## Building
 
@@ -70,6 +76,7 @@ a JDK. Point `build_config.json` at both:
 | `source/GoatArtist.mc` | all the drawing |
 | `source/Breeds.mc` | the herd — colours and shape switches |
 | `source/Pose.mc` | where every part of the goat is *this* second |
+| `source/Mood.mc` | how the goat feels about how *you* are doing, sampled every five minutes |
 | `source/Config.mc` | cached settings, tolerant of whatever type the settings editor sends |
 
 There is **no bitmap art and no bitmap fonts**. Every feature is laid out in

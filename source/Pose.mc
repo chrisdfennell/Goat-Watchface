@@ -72,9 +72,16 @@ class Pose {
     }
 
     //! t: seconds within the hour. unit: the face's scale (min screen edge).
-    //! motion: 0.0 (Still) .. 1.7 (Frisky).
-    function update(t as Number, unit as Number, motion as Float) as Void {
+    //! motion: 0.0 (Still) .. 1.7 (Frisky). weary: 0.0 wide awake .. 1.0 lids shut.
+    function update(t as Number, unit as Number, motion as Float, weary as Float) as Void {
         rest();
+
+        // Heavy lids are a state rather than a movement, so they sit even on a
+        // Still goat, which is a portrait rather than a frozen animation.
+        if (weary > 0.0) {
+            blink = weary;
+        }
+
         if (motion <= 0.0) {
             return;
         }
@@ -99,13 +106,17 @@ class Pose {
 
         // Blinking runs on its own clock rather than as a gesture - it has to be
         // able to happen in the middle of anything else. Except a yawn, which
-        // screws the eyes shut on its own.
+        // screws the eyes shut on its own. Falling through leaves the lids at
+        // whatever weariness set them to.
         if (gesture != G_YAWN) {
             var b = fizz(t + 7) % 17;
             if (b == 0) {
                 blink = 1.0;
             } else if (b == 1) {
                 blink = 0.45;
+            } else if (weary > 0.0 && (fizz(t + 23) % 9) == 0) {
+                // Tired eyes blink oftener as well as sitting lower.
+                blink = 1.0;
             }
         }
     }
